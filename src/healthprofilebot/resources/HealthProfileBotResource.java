@@ -42,6 +42,7 @@ public class HealthProfileBotResource {
     	ServerResponse tResponse = new ServerResponse();
     	tResponse.chat_id = update.message.chat.id;
     	tResponse.text = "hola";
+    	tResponse.method = "sendMessage";
     	
     	Response res = Response.ok(tResponse).build();
 		return res;
