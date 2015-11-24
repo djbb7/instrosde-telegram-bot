@@ -1,5 +1,6 @@
 package healthprofilebot.resources;
 
+import healthprofilebot.model.ServerResponse;
 import healthprofilebot.model.TelegramUpdate;
 
 import java.io.IOException;
@@ -37,7 +38,11 @@ public class HealthProfileBotResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response newPerson(TelegramUpdate update)  {
-    	Response res = Response.ok().build();
+    	ServerResponse tResponse = new ServerResponse();
+    	tResponse.chat_id = update.message.chat.id;
+    	tResponse.text = "hola";
+    	
+    	Response res = Response.ok(tResponse).build();
 		return res;
     }
     
