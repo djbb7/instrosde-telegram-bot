@@ -38,6 +38,7 @@ public class HealthProfileBotResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response newPerson(TelegramUpdate update)  {
+    	System.out.println("Receiving message: "+update.message.text+" from:"+update.message.from.first_name);
     	ServerResponse tResponse = new ServerResponse();
     	tResponse.chat_id = update.message.chat.id;
     	tResponse.text = "hola";

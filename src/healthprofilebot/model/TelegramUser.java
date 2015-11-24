@@ -2,7 +2,10 @@ package healthprofilebot.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @XmlRootElement
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class TelegramUser {
 
 	public int id;
