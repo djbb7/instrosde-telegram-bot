@@ -53,9 +53,6 @@
         <property name="lib.dir" value="WebContent/WEB-INF/lib" />
         <property name="web.dir" value="." />
         <property name="webcontent.dir" value="WebContent" />
-        <property name="webservice.endpoint" value="https://damp-cliffs-5416.herokuapp.com/rest" />
-        <property name="json.log" value="client-server-json.log" />
-        <property name="xml.log" value="client-server-xml.log" />
         <!-- ================================= 
 	          target: resolve downloads the dependencies to your lib folder              
 	         ================================= -->
@@ -107,8 +104,8 @@
             </copy>
         </target>
         <target name="run">
-            <echo message="app start introsde.assignment2.ehealth.App in ${build.dir}" />
-            <java classname="introsde.assignment2.ehealth.App" classpath="${build.dir}" fork="true">
+            <echo message="app start healthprofilebot.App in ${build.dir}" />
+            <java classname="healthprofilebot.App" classpath="${build.dir}" fork="true">
                 <arg value="$JAVA_OPTS  -cp" />
                 <classpath>
                     <path location="build" />
@@ -119,43 +116,10 @@
                 </classpath>
             </java>
         </target>
-        <target name="execute.client" depends="execute.client.xml, execute.client.json" />
-        <target name="execute.client.xml" depends="install">
-            <record name="${xml.log}" action="start" append="false" />
-            <java classname="client.eHealthClient" classpath="${build.dir}" fork="true">
-                <arg value="${webservice.endpoint}" />
-                <arg value="application/xml" />
-                <arg value="$JAVA_OPTS  -cp" />
-                <classpath>
-                    <path location="build" />
-                    <fileset dir="WebContent/WEB-INF/lib">
-                        <include name="**/*.jar" />
-                        <include name="*.jar" />
-                    </fileset>
-                </classpath>
-            </java>
-            <record name="${xml.log}" action="stop" />
-        </target>
-        <target name="execute.client.json" depends="install">
-            <record name="${json.log}" action="start" append="false" />
-            <java classname="client.eHealthClient" classpath="${build.dir}" fork="true">
-                <arg value="${webservice.endpoint}" />
-                <arg value="application/json" />
-                <arg value="$JAVA_OPTS  -cp" />
-                <classpath>
-                    <path location="build" />
-                    <fileset dir="WebContent/WEB-INF/lib">
-                        <include name="**/*.jar" />
-                        <include name="*.jar" />
-                    </fileset>
-                </classpath>
-            </java>
-            <record name="${json.log}" action="stop" />
 
-        </target>
         <!-- make sure you have created first the WebContent folder, including a META-INF folder, WEB-INF/web.xml file and WEB-INF/lib folder -->
         <target name="create.war" depends="install">
-            <war destfile="instrosde-2015-assignment-2.war" webxml="${web.dir}/WebContent/WEB-INF/web.xml">
+            <war destfile="health-profile-bot.war" webxml="${web.dir}/WebContent/WEB-INF/web.xml">
                 <fileset dir="${web.dir}/WebContent">
                     <include name="**/*.*" />
                 </fileset>

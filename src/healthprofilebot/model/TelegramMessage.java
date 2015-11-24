@@ -10,4 +10,8 @@ public class TelegramMessage {
 	public int date;
 	public TelegramChat chat;
 	public String text;
+	
+	public TelegramMessage(){
+		
+	}
 }

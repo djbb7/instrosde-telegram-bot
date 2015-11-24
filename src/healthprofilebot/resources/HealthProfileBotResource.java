@@ -36,8 +36,8 @@ public class HealthProfileBotResource {
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response newPerson(TelegramUpdate update) throws IOException {
-    	Response res = Response.accepted().build();
+    public Response newPerson(TelegramUpdate update)  {
+    	Response res = Response.ok().build();
 		return res;
     }
     

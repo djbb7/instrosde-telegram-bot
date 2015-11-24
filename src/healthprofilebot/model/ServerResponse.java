@@ -3,12 +3,13 @@ package healthprofilebot.model;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class TelegramChat {
+public class ServerResponse {
 
-		public int id;
+	public int chat_id;
+	
+	public String text;
+	
+	public ServerResponse(){
 		
-		public TelegramChat(){
-			
-		}
-		
+	}
 }

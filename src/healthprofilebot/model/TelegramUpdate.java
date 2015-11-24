@@ -8,4 +8,8 @@ public class TelegramUpdate {
 	public int update_id;
 	
 	public TelegramMessage message;
+	
+	public TelegramUpdate(){
+		
+	}
 }
