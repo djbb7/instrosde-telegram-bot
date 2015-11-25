@@ -131,7 +131,7 @@ public class HealthProfileWorker implements Runnable{
 		}
 		
 		response.bufferEntity();
-		System.out.println(response.readEntity(String.class));
+		System.out.println("[slave][request]["+response.getStatus()+"] "+response.readEntity(String.class));
 		return response;
 	}
 }
