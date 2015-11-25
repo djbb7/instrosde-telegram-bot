@@ -71,6 +71,7 @@ public class HealthProfileWorker implements Runnable{
 			chuck.firstname = job.message.from.first_name;
 			chuck.lastname = job.message.from.last_name;
 			Response r = sendRequest(hpService, "/person", "POST", chuck); 
+			System.out.println("[slave]"+r.readEntity(String.class));
 			
 			Person p = r.readEntity(Person.class);
 			
