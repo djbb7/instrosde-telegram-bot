@@ -9,8 +9,6 @@ public class ServerResponse {
 	
 	public String text;
 	
-	public String method;
-	
 	public ServerResponse(){
 		
 	}

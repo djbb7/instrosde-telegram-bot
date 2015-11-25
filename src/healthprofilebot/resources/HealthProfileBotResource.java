@@ -53,7 +53,6 @@ public class HealthProfileBotResource {
     		tResponse = new ServerResponse();
         	tResponse.chat_id = update.message.chat.id;
         	tResponse.text = "Invalid command!";
-        	tResponse.method = "sendMessage";
     	}
     	
 		return Response.ok(tResponse).build();

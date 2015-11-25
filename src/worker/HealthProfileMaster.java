@@ -8,7 +8,7 @@ public enum HealthProfileMaster {
 	INSTANCE;
 
 	private static String[] validCommands = {"/start", "/weight", "/height", "/blood"};
-	
+		
 	HealthProfileMaster(){
 	}
 	
