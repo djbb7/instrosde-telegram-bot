@@ -70,7 +70,11 @@ public class HealthProfileWorker implements Runnable{
 		/*	Person chuck = new Person();
 			chuck.firstname = job.message.from.first_name;
 			chuck.lastname = job.message.from.last_name;
-		
+		*/
+			String chuck = "{"+
+  "\"firstname\": \"Manuell\","+
+  "\"lastname\": \"Bruzual\""+
+  "}";
 			Response r = sendRequest(hpService, "/person", "POST", chuck); 
 			System.out.println("[slave]"+r.getStatus());
 			System.out.println("[slave]"+r.readEntity(String.class));
@@ -82,7 +86,7 @@ public class HealthProfileWorker implements Runnable{
 			match.setTelegramUserId(job.message.from.id);
 			match.setHealthProfileId(p.id);
 			IdMatch.saveIdMatch(match);
-			*/
+			
 			//Report profile created
 			tResponse.text = "Done! Check out '/help' to see a list of available commands.";
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
