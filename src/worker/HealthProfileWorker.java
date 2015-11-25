@@ -41,10 +41,12 @@ public class HealthProfileWorker implements Runnable{
 		
 		//setup telegram server
 		telegramService = client.target(telegramServer);
+		System.out.println("[slave] initialized");
 	}
 	
 	@Override
 	public void run() {
+		System.out.println("[slave] Running task");
 		//open message
 		String message = job.message.text.trim();
 		String[] parts = message.split(" ");
@@ -53,8 +55,11 @@ public class HealthProfileWorker implements Runnable{
 		ServerResponse tResponse = new ServerResponse();
 		tResponse.chat_id = job.message.chat.id;
 		
+		System.out.println("[slave] checking db...");
+
 		//check user id in database
 		IdMatch match = IdMatch.getIdMatchByTelegramUserId(job.message.from.id);
+		
 		
 		if(match == null && command.equals("/start")){			
 			//Let user now what is happening
@@ -80,8 +85,10 @@ public class HealthProfileWorker implements Runnable{
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (match == null && !command.equals("/start")) {
 			tResponse.text = "Please type command '/start' to create your health profile";
+			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (match != null && command.equals("/start")){
 			tResponse.text = "Welcome back, "+job.message.from.first_name;
+			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (command.equals("/weight")){
 			
 		} else if (command.equals("/height")){

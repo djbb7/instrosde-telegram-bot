@@ -17,6 +17,7 @@ public enum HealthProfileMaster {
 	}
 	
 	public void runTask(TelegramUpdate job){
+		System.out.println("Starting worker thread");
 		//start worker thread
 		HealthProfileWorker worker = new HealthProfileWorker(job);
 		worker.run();
