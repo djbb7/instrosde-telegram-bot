@@ -1,9 +1,13 @@
 package worker;
 
 import healthprofilebot.model.IdMatch;
+import healthprofilebot.model.Measurement;
 import healthprofilebot.model.Person;
 import healthprofilebot.model.ServerResponse;
 import healthprofilebot.model.TelegramUpdate;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -67,14 +71,17 @@ public class HealthProfileWorker implements Runnable{
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 			
 			//create remote health profile
-		/*	Person chuck = new Person();
+			Person chuck = new Person();
 			chuck.firstname = job.message.from.first_name;
 			chuck.lastname = job.message.from.last_name;
-		*/
-			String chuck = "{"+
+			chuck.email = "";
+			chuck.measure = new ArrayList<Measurement>();
+			chuck.setBirthdate(new Date(2000, 4, 12)); 
+			
+			/*String chuck = "{"+
   "\"firstname\": \"Manuell\","+
   "\"lastname\": \"Bruzual\""+
-  "}";
+  "}";*/
 			Response r = sendRequest(hpService, "/person", "POST", chuck); 
 			System.out.println("[slave]"+r.getStatus());
 			System.out.println("[slave]"+r.readEntity(String.class));
