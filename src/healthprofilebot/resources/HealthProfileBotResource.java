@@ -1,6 +1,5 @@
 package healthprofilebot.resources;
 
-import healthprofilebot.model.ServerResponse;
 import healthprofilebot.model.TelegramUpdate;
 
 import java.io.IOException;
@@ -41,21 +40,16 @@ public class HealthProfileBotResource {
     @Consumes({MediaType.APPLICATION_JSON})
     public Response newPerson(TelegramUpdate update)  {
     	System.out.println("Receiving message: "+update.message.text+" from:"+update.message.from.first_name+" chat_id:"+update.message.chat.id);
-    	ServerResponse tResponse = null;
     	
     	//parse message content
     	String content = update.message.text.trim();
     	
     	if(content.startsWith("/") && HealthProfileMaster.isValidCommand(content)){
         	//execute command
-    	//	HealthProfileMaster.getInstance().runTask(update);
-    	} else {
-    		tResponse = new ServerResponse();
-        	tResponse.chat_id = update.message.chat.id;
-        	tResponse.text = "Invalid command!";
-    	}
+    		HealthProfileMaster.getInstance().runTask(update);
+    	} 
     	
-		return Response.ok(tResponse).build();
+		return Response.ok().build();
     }
 
 }
