@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Person")
+@Table(name="IdMatch")
 public class IdMatch {
 
 	@Id
