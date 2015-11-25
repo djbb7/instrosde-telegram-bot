@@ -17,6 +17,8 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import worker.HealthProfileMaster;
+
 @Stateless
 @LocalBean
 @Path("/")
@@ -38,16 +40,23 @@ public class HealthProfileBotResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response newPerson(TelegramUpdate update)  {
-    	System.out.println("Receiving message: "+update.message.text+" from:"+update.message.from.first_name);
-    	ServerResponse tResponse = new ServerResponse();
-    	tResponse.chat_id = update.message.chat.id;
-    	tResponse.text = "hola";
-    	tResponse.method = "sendMessage";
+    	System.out.println("Receiving message: "+update.message.text+" from:"+update.message.from.first_name+" chat_id:"+update.message.chat.id);
+    	ServerResponse tResponse = null;
     	
-    	Response res = Response.ok(tResponse).build();
-		return res;
+    	//parse message content
+    	String content = update.message.text.trim();
+    	
+    	if(content.startsWith("/") && HealthProfileMaster.isValidCommand(content)){
+        	//execute command
+    	//	HealthProfileMaster.getInstance().runTask(update);
+    	} else {
+    		tResponse = new ServerResponse();
+        	tResponse.chat_id = update.message.chat.id;
+        	tResponse.text = "Invalid command!";
+        	tResponse.method = "sendMessage";
+    	}
+    	
+		return Response.ok(tResponse).build();
     }
-    
-
 
 }
