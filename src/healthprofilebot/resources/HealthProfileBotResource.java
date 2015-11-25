@@ -44,7 +44,7 @@ public class HealthProfileBotResource {
     	//parse message content
     	String content = update.message.text.trim();
     	
-    	if(content.startsWith("/") && HealthProfileMaster.isValidCommand(content)){
+    	if(content.startsWith("/")){
         	//execute command
     		HealthProfileMaster.getInstance().runTask(update);
     	} 
