@@ -67,7 +67,7 @@ public class HealthProfileWorker implements Runnable{
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 			
 			//create remote health profile
-			Person chuck = new Person();
+		/*	Person chuck = new Person();
 			chuck.firstname = job.message.from.first_name;
 			chuck.lastname = job.message.from.last_name;
 		
@@ -82,7 +82,7 @@ public class HealthProfileWorker implements Runnable{
 			match.setTelegramUserId(job.message.from.id);
 			match.setHealthProfileId(p.id);
 			IdMatch.saveIdMatch(match);
-			
+			*/
 			//Report profile created
 			tResponse.text = "Done! Check out '/help' to see a list of available commands.";
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
