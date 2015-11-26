@@ -1,6 +1,6 @@
 package healthprofilebot.resources;
 
-import healthprofilebot.model.ServerResponseEfficient;
+import healthprofilebot.model.ServerResponse;
 import healthprofilebot.model.TelegramUpdate;
 
 import java.io.IOException;
@@ -45,14 +45,14 @@ public class HealthProfileBotResource {
     	//parse message content
     	String content = update.message.text.trim();
     	
-    	ServerResponseEfficient tResponse = null;
+    	ServerResponse tResponse = null;
     	
     	if(content.startsWith("/")){
         	//execute command
     		HealthProfileMaster.getInstance().runTask(update);
     	} else {
     		//in this case could respond with a pretty quote from another web service
-    		tResponse = new ServerResponseEfficient(update);
+    		tResponse = new ServerResponse(update);
     		tResponse.setMethod("sendMessage");
     		tResponse.setText("I don't understand this command. Sorry :)");
     	}

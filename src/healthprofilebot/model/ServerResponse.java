@@ -9,6 +9,8 @@ public class ServerResponse {
 	
 	private String text;
 	
+	private String method;
+	
 	public ServerResponse(){
 		
 	}
@@ -25,6 +27,10 @@ public class ServerResponse {
 		return text;
 	}
 
+	public String getMethod(){
+		return method;
+	}
+	
 	public void setChat_id(int chat_id) {
 		this.chat_id = chat_id;
 	}
@@ -33,5 +39,8 @@ public class ServerResponse {
 		this.text = text;
 	}
 	
+	public void setMethod(String m) {
+		this.method = m;
+	}
 	
 }
