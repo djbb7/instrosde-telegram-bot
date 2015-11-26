@@ -20,6 +20,9 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class HealthProfileWorker implements Runnable{
 
@@ -127,8 +130,14 @@ public class HealthProfileWorker implements Runnable{
 		Entity<Object> body = null;
 		if(requestBody != null){
 			body = Entity.json(requestBody);
-			System.out.println("[slave][request] JSON Content: "+ body);
-			
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				String debug = mapper.writeValueAsString(requestBody);
+
+				System.out.println("[slave][request] JSON Content: "+ debug);
+			} catch (JsonProcessingException e ) {
+				System.out.println("Error processing JSON object");
+			}
 		}
 		
 		if(method.equals("GET")){
