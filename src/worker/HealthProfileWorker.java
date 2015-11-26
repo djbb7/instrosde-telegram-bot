@@ -102,17 +102,24 @@ public class HealthProfileWorker implements Runnable{
 		} else if (match != null && command.equals("/start")){
 			tResponse.setText("Welcome back, "+job.message.from.first_name);
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
-		} else if (command.equals("/weight")){
-			String path = "/person/"+match.getHealthProfileId()+"/weight";
+		} else if (command.equals("/weight") || command.equals("/height") || command.equals("/blood")){
+			if(parts.length < 2){
+				tResponse.setText("Be sure tu include the command name followed by the measurement value. Like this: \n"+
+								  command+" 67");
+			}
+			String path = "/person/"+match.getHealthProfileId()+command;
 			Measurement measure = new Measurement();
 			measure.value = parts[1];
 			Response r = sendRequest(hpService, path, "POST", measure);
 			System.out.println("[slave]"+r.getStatus());
 			System.out.println("[slave]"+r.readEntity(String.class));
-		} else if (command.equals("/height")){
 			
-		} else if (command.equals("/blood")){
-			
+			if(r.getStatus() == 200){
+				tResponse.setText("Great, your measurement was stored. Keep up the good work :)");
+			} else {
+				tResponse.setText("I could not save your measurement. Could you try again?");
+			}
+			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else {
 			//Error
 			tResponse.setText("I don't understand this command");
