@@ -1,10 +1,13 @@
 package healthprofilebot.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Used to respond to POST requests from telegram server
  * with a GET request containing a message, saving one
  * request alltogether.
  */
+@XmlRootElement
 public class ServerResponseEfficient extends ServerResponse {
 
 	private String method;
