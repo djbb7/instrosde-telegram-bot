@@ -1,13 +1,9 @@
 package worker;
 
 import healthprofilebot.model.IdMatch;
-import healthprofilebot.model.Measurement;
 import healthprofilebot.model.Person;
 import healthprofilebot.model.ServerResponse;
 import healthprofilebot.model.TelegramUpdate;
-
-import java.util.ArrayList;
-import java.util.Date;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -59,8 +55,7 @@ public class HealthProfileWorker implements Runnable{
 		String[] parts = message.split(" ");
 		String command = parts[0];
 		
-		ServerResponse tResponse = new ServerResponse();
-		tResponse.chat_id = job.message.chat.id;
+		ServerResponse tResponse = new ServerResponse(job);
 		
 		System.out.println("[slave] checking db...");
 
@@ -70,7 +65,7 @@ public class HealthProfileWorker implements Runnable{
 		
 		if(match == null && command.equals("/start")){			
 			//Let user now what is happening
-			tResponse.text = "Creating your health profile :). Please hold on.";
+			tResponse.setText("Creating your health profile :). Please hold on.");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 			
 			//create remote health profile
@@ -94,13 +89,13 @@ public class HealthProfileWorker implements Runnable{
 			IdMatch.saveIdMatch(match);
 			
 			//Report profile created
-			tResponse.text = "Done! Check out '/help' to see a list of available commands.";
+			tResponse.setText("Done! Check out '/help' to see a list of available commands.");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (match == null && !command.equals("/start")) {
-			tResponse.text = "Please type command '/start' to create your health profile";
+			tResponse.setText("Please type command '/start' to create your health profile");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (match != null && command.equals("/start")){
-			tResponse.text = "Welcome back, "+job.message.from.first_name;
+			tResponse.setText("Welcome back, "+job.message.from.first_name);
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (command.equals("/weight")){
 			
@@ -110,7 +105,7 @@ public class HealthProfileWorker implements Runnable{
 			
 		} else {
 			//Error
-			tResponse.text = "I don't understand this command";
+			tResponse.setText("I don't understand this command");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		}
     	
