@@ -51,8 +51,9 @@ public class HealthProfileBotResource {
         	//execute command
     		HealthProfileMaster.getInstance().runTask(update);
     	} else {
+    		//in this case could respond with a pretty quote from another web service
     		tResponse = new ServerResponseEfficient(update);
-    		tResponse.setMethodName("sendMessage");
+    		tResponse.setMethod("sendMessage");
     		tResponse.setText("I don't understand this command. Sorry :)");
     	}
     	
