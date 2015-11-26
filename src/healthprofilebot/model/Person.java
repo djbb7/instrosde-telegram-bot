@@ -11,15 +11,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Person {
 
-	public int id;
+	private int id;
 	
-	public String firstname;
+	private String firstname;
 	
 	public String lastname;
 	
 	private Date birthdate;
 	
-	public String email; //TODO: Added for working with Fiorini's schema
+	private String email; //TODO: Added for working with Fiorini's schema
 	
 //    @XmlElementWrapper(name="healthProfile")
     //TODO: Changed from "measurement" to "measure" to work with Fiorini's server
@@ -30,11 +30,58 @@ public class Person {
 		
 	}
 	
+	public int getId() {
+		return id;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public List<Measurement> getMeasure() {
+		return measure;
+	}
+
 	public Date getBirthdate(){
 		return birthdate;
 	}
 	
+	
 	public void setBirthdate(Date d){
 		birthdate = d;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setFirstname(String firstname) {
+		if(firstname == null)
+			firstname = "";
+		this.firstname = firstname;
+	}
+
+	public void setLastname(String lastname) {
+		if(lastname == null)
+			lastname = "";
+		this.lastname = lastname;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setMeasure(List<Measurement> measure) {
+		this.measure = measure;
+	}
+	
+	
 }
