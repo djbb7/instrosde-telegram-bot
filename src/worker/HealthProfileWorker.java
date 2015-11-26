@@ -103,21 +103,33 @@ public class HealthProfileWorker implements Runnable{
 			tResponse.setText("Welcome back, "+job.message.from.first_name);
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (command.equals("/weight") || command.equals("/height") || command.equals("/blood")){
+			boolean hasErrors = false;
 			if(parts.length < 2){
 				tResponse.setText("Be sure tu include the command name followed by the measurement value. Like this: \n"+
 								  command+" 67");
+				hasErrors = true;
 			}
-			String path = "/person/"+match.getHealthProfileId()+command;
-			Measurement measure = new Measurement();
-			measure.value = parts[1];
-			Response r = sendRequest(hpService, path, "POST", measure);
-			System.out.println("[slave]"+r.getStatus());
-			System.out.println("[slave]"+r.readEntity(String.class));
+			try {
+				Double.parseDouble(parts[1]);
+			} catch (NumberFormatException e) {
+				tResponse.setText("Are you trying to hack me :(? Please type the command followed by a numeric value. Like this: \n"+
+								  command+" 68");
+				hasErrors = true;
+			}
 			
-			if(r.getStatus() == 200){
-				tResponse.setText("Great, your measurement was stored. Keep up the good work :)");
-			} else {
-				tResponse.setText("I could not save your measurement. Could you try again?");
+			if(!hasErrors){
+				String path = "/person/"+match.getHealthProfileId()+command;
+				Measurement measure = new Measurement();
+				measure.value = parts[1];
+				Response r = sendRequest(hpService, path, "POST", measure);
+				System.out.println("[slave]"+r.getStatus());
+				System.out.println("[slave]"+r.readEntity(String.class));
+				
+				if(r.getStatus() == 200){
+					tResponse.setText("Great, your measurement was stored. Keep up the good work :)");
+				} else {
+					tResponse.setText("I could not save your measurement. Could you try again?");
+				}
 			}
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else {
