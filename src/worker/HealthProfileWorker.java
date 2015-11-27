@@ -68,6 +68,7 @@ public class HealthProfileWorker implements Runnable{
 
 		if(match == null && command.equals("/start")){			
 			//Let user now what is happening
+			System.out.println("[slave] Create health profile...");
 			tResponse.setText("Creating your health profile :). Please hold on.");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 
@@ -80,8 +81,8 @@ public class HealthProfileWorker implements Runnable{
 			//chuck.setBirthdate(new Date(2000, 4, 12));
 
 			Response r = sendRequest(hpService, "/person", "POST", chuck); 
-			System.out.println("[slave]"+r.getStatus());
-			System.out.println("[slave]"+r.readEntity(String.class));
+			System.out.println("[slave] Fiorini status: "+r.getStatus());
+			System.out.println("[slave] Fiorini response: "+r.readEntity(String.class));
 
 			if(r.getStatus() == 201){
 				Person p = r.readEntity(Person.class);
@@ -111,7 +112,7 @@ public class HealthProfileWorker implements Runnable{
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (command.equals("/weightHistory") || command.equals("/heightHistory") || command.equals("/bloodHistory")){ 
 
-		} else if (lastCmd.equals("/weight") || lastCmd.equals("/height") || lastCmd.equals("/blood")){
+		} else if (lastCmd != null && (lastCmd.equals("/weight") || lastCmd.equals("/height") || lastCmd.equals("/blood"))){
 			try {
 				//save measurement
 				double value = Double.parseDouble(command);
@@ -130,6 +131,7 @@ public class HealthProfileWorker implements Runnable{
 					tResponse.setText("I could not save your measurement. Could you try again?");
 					hasErrors = true;
 				}
+				sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 			} catch (NumberFormatException e) {
 				tResponse.setText("Are you trying to hack me :(? Please type a numeric value.");
 				sendRequest(telegramService, "/sendMessage", "POST", tResponse);
