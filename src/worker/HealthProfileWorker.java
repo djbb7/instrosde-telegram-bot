@@ -121,6 +121,8 @@ public class HealthProfileWorker implements Runnable{
 				String path = "/person/"+match.getHealthProfileId()+command;
 				Measurement measure = new Measurement();
 				measure.value = parts[1];
+				if(measure.value.equals("blood")) //rename to ACTUAL name on Web Server.
+					measure.value = "bloodpressure";
 				Response r = sendRequest(hpService, path, "POST", measure);
 				System.out.println("[slave]"+r.getStatus());
 				System.out.println("[slave]"+r.readEntity(String.class));
@@ -132,7 +134,9 @@ public class HealthProfileWorker implements Runnable{
 				}
 			}
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
-		} else {
+	 } else if (command.equals("/weightHistory") || command.equals("/heightHistory") || command.equals("/bloodHistory")){ 
+		
+	 } else {
 			//Error
 			tResponse.setText("I don't understand this command");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
