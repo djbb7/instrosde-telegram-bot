@@ -1,6 +1,5 @@
 package healthprofilebot.resources;
 
-import healthprofilebot.model.ServerResponse;
 import healthprofilebot.model.TelegramUpdate;
 
 import java.io.IOException;
@@ -40,24 +39,12 @@ public class HealthProfileBotResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response newPerson(TelegramUpdate update)  {
-    	System.out.println("Receiving message: "+update.message.text+" from:"+update.message.from.first_name+" chat_id:"+update.message.chat.id);
+    	System.out.println("[endpoint] Receiving message: "+update.message.text+" from:"+update.message.from.first_name+" chat_id:"+update.message.chat.id);
     	
-    	//parse message content
-    	String content = update.message.text.trim();
+    	//execute command
+		HealthProfileMaster.getInstance().runTask(update);
     	
-    	ServerResponse tResponse = null;
-    	
-    	if(content.startsWith("/")){
-        	//execute command
-    		HealthProfileMaster.getInstance().runTask(update);
-    	} else {
-    		//in this case could respond with a pretty quote from another web service
-    		tResponse = new ServerResponse(update);
-    		tResponse.setMethod("sendMessage");
-    		tResponse.setText("I don't understand this command. Sorry :)");
-    	}
-    	
-		return Response.ok(tResponse).build();
+		return Response.ok().build();
     }
 
 }
