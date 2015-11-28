@@ -3,6 +3,7 @@ package worker;
 import healthprofilebot.model.IdMatch;
 import healthprofilebot.model.LastCommand;
 import healthprofilebot.model.Measurement;
+import healthprofilebot.model.MeasurementWithId;
 import healthprofilebot.model.Person;
 import healthprofilebot.model.ServerResponse;
 import healthprofilebot.model.TelegramUpdate;
@@ -131,16 +132,16 @@ public class HealthProfileWorker implements Runnable{
 			} else if (command.equals("/weight_history")){
 				measureType = "height";
 			} else {
-				measureType = "blood";
+				measureType = "bloodpressure";
 			}
 			Response r = sendRequest(hpService, "/person/"+match.getHealthProfileId()+"/"+measureType, "GET", null);
 			System.out.println(">>..[slave] Fiorini get measure history: "+r.getStatus());
 			System.out.println(">>..[slave] Fiorini get measure history response: "+r.readEntity(String.class));
 
 			if(r.getStatus() == 200){
-				List<Measurement> history = r.readEntity(new GenericType<List<Measurement>>() {});
+				List<MeasurementWithId> history = r.readEntity(new GenericType<List<MeasurementWithId>>() {});
 				String res = "";
-				for(Measurement m : history){
+				for(MeasurementWithId m : history){
 					res += m.value+", ";
 				}
 				tResponse.setText("History: "+res);
