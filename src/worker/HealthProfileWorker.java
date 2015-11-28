@@ -106,7 +106,7 @@ public class HealthProfileWorker implements Runnable{
 				//Report profile created
 				tResponse.setText("Done! Check out '/help' to see a list of available commands.");
 			} else {
-				tResponse.setText("I could not reach the HealthProfile web server. I'm sorry :)");
+				tResponse.setText("I could not reach the HealthProfile web server. I'm sorry :|");
 				hasErrors = true;
 			}
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
@@ -114,11 +114,8 @@ public class HealthProfileWorker implements Runnable{
 		
 		if(hasErrors){
 			
-		} else if (match != null && command.equals("/start")){
+		} else if (command.equals("/start")){
 			System.out.println(">>..[slave] Health Profile already exists: "+command);
-
-			tResponse.setText("Welcome back, "+job.message.from.first_name);
-			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (command.equals("/weight") || command.equals("/height") || command.equals("/blood")){
 			System.out.println(">>..[slave] First step add measure: "+command);
 			//save command received
