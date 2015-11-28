@@ -1,6 +1,5 @@
 package healthprofilebot.resources;
 
-import healthprofilebot.model.LastCommand;
 import healthprofilebot.model.TelegramUpdate;
 
 import java.io.IOException;
