@@ -45,11 +45,12 @@ public class HealthProfileBotResource {
     	//execute command
 	//	HealthProfileMaster.getInstance().runTask(update);
     	
-    	LastCommand lc = LastCommand.getLastCommand(update.message.from.id);
-    	if(lc != null){
-    		System.out.println(">>[endpoint] Last command: "+lc.getCommand());
-    	}
+    	
     	try {
+    		LastCommand lc = LastCommand.getLastCommand(update.message.from.id);
+        	if(lc != null){
+        		System.out.println(">>[endpoint] Last command: "+lc.getCommand());
+        	}
     		LastCommand.updateLastCommand(new LastCommand(update.message.from.id, update.message.text));
     	} catch (Exception e){
     		System.out.println("Something happened..."+e.getMessage());
