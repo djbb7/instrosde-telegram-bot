@@ -20,6 +20,9 @@ public class LastCommand {
 	@Column(name="command")
 	private String command;
 	
+	@Column(name="update_id")
+	private int update_id;
+	
 	public LastCommand(){
 		
 	}
@@ -31,6 +34,10 @@ public class LastCommand {
 
 	public int getTelegramUserId() {
 		return telegramUserId;
+	}
+	
+	public int getUpdate_id(){
+		return update_id;
 	}
 
 	public String getCommand() {
@@ -45,7 +52,10 @@ public class LastCommand {
 		this.command = command;
 	}
 	
-
+	public void setUpdate_id(int id){
+		this.update_id = id;
+	}
+	
     public static LastCommand getLastCommand(int telegramUserId) {
         EntityManager em = BotDao.instance.createEntityManager();
         LastCommand match = em.find(LastCommand.class, telegramUserId);
