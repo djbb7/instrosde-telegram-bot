@@ -66,9 +66,9 @@ public class HealthProfileWorker implements Runnable{
 		IdMatch match = IdMatch.getIdMatchByTelegramUserId(job.message.from.id);
 
 		System.out.println(">>..[slave] checking command history...");
-	//	LastCommand lastCmd = LastCommand.getLastCommand(job.message.from.id);
-		LastCommand lastCmd = null;
-
+		LastCommand lastCmd = LastCommand.getLastCommand(job.message.from.id);
+		System.out.println(">>..[slave] last command: "+(lastCmd==null?"null":lastCmd.getCommand()));
+		
 		System.out.println(">>..[slave] processing command...");
 		if(match == null && command.equals("/start")){			
 			//Let user now what is happening
@@ -160,8 +160,8 @@ public class HealthProfileWorker implements Runnable{
 		
 		if(!hasErrors){
 			//update command database for user
-	//		LastCommand cmd = new LastCommand(job.message.from.id, command);
-	//		LastCommand.updateLastCommand(cmd);
+			LastCommand cmd = new LastCommand(job.message.from.id, command);
+			LastCommand.updateLastCommand(cmd);
 		}
 	}
 

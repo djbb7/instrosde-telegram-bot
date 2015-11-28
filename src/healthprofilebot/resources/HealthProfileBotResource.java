@@ -43,9 +43,9 @@ public class HealthProfileBotResource {
     	System.out.println("\n>>[endpoint] Receiving message: "+update.message.text+" from:"+update.message.from.first_name+" update_id:"+update.update_id);
     	
     	//execute command
-	//	HealthProfileMaster.getInstance().runTask(update);
+		HealthProfileMaster.getInstance().runTask(update);
     	
-    	
+    /*	
     	try {
     		LastCommand lc = LastCommand.getLastCommand(update.message.from.id);
         	if(lc != null){
@@ -65,7 +65,7 @@ public class HealthProfileBotResource {
         	
     	} catch (Exception e){
     		System.out.println("Something happened..."+e.getMessage());
-    	}
+    	}*/
     		System.out.println(">>[endpoint] master called");
 		return Response.ok().build();
     }
