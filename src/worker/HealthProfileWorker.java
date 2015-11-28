@@ -66,8 +66,8 @@ public class HealthProfileWorker implements Runnable{
 		IdMatch match = IdMatch.getIdMatchByTelegramUserId(job.message.from.id);
 
 		System.out.println(">>[slave] checking command history...");
-		LastCommand lastCmd = LastCommand.getLastCommand(job.message.from.id);
-
+	//	LastCommand lastCmd = LastCommand.getLastCommand(job.message.from.id);
+		LastCommand lastCmd = null;
 
 		System.out.println(">>[slave] processing command...");
 		if(match == null && command.equals("/start")){			

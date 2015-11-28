@@ -39,10 +39,10 @@ public class HealthProfileBotResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response newPerson(TelegramUpdate update)  {
-    	System.out.println("[endpoint] Receiving message: "+update.message.text+" from:"+update.message.from.first_name+" chat_id:"+update.message.chat.id);
+    	System.out.println("\n>>[endpoint] Receiving message: "+update.message.text+" from:"+update.message.from.first_name+" chat_id:"+update.message.chat.id);
     	
     	//execute command
-	//	HealthProfileMaster.getInstance().runTask(update);
+		HealthProfileMaster.getInstance().runTask(update);
     	
 		return Response.ok().build();
     }
