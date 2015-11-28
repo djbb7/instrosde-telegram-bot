@@ -7,11 +7,14 @@ import healthprofilebot.model.Person;
 import healthprofilebot.model.ServerResponse;
 import healthprofilebot.model.TelegramUpdate;
 
+import java.util.List;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -135,7 +138,12 @@ public class HealthProfileWorker implements Runnable{
 			System.out.println(">>..[slave] Fiorini get measure history response: "+r.readEntity(String.class));
 
 			if(r.getStatus() == 200){
-//				tResponse.setText("Great, your measurement was stored. Keep up the good work :)");
+				List<Measurement> history = r.readEntity(new GenericType<List<Measurement>>() {});
+				String res = "";
+				for(Measurement m : history){
+					res += m.value+", ";
+				}
+				tResponse.setText("History: "+res);
 			} else {
 				tResponse.setText("I could not fetch the measure history. Could you try again?");
 			}

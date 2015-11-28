@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="measure")//TODO: Added for working with Fiorini's schema
 public class Measurement {
 	
-	private int mid;
+	//private int mid;
 	
 	public Date created;
 	
@@ -36,11 +36,11 @@ public class Measurement {
 		created = d;
 	}
 	
-	public int getMid(){
+	/*public int getMid(){
 		return mid;
 	}
 	
 	public void setMid(int mid){
 		this.mid = mid;
-	}
+	}*/
 }
