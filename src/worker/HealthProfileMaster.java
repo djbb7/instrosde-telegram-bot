@@ -20,7 +20,7 @@ public enum HealthProfileMaster {
 		System.out.println(">>[master] Starting worker thread");
 		//start worker thread
 		HealthProfileWorker worker = new HealthProfileWorker(job);
-		worker.run();
+		//worker.run();
 	}
 	
 	public static boolean isValidCommand(String command){
