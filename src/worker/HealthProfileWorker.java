@@ -46,12 +46,12 @@ public class HealthProfileWorker implements Runnable{
 
 		//setup telegram server
 		telegramService = client.target(telegramServer);
-		System.out.println(">>[slave] initialized");
+		System.out.println(">>..[slave] initialized");
 	}
 
 	@Override
 	public void run() {
-		System.out.println(">>[slave] Running task");
+		System.out.println(">>..[slave] Running task");
 		//open message
 		String message = job.message.text.trim();
 		String[] parts = message.split(" ");
@@ -60,19 +60,19 @@ public class HealthProfileWorker implements Runnable{
 
 		ServerResponse tResponse = new ServerResponse(job);
 
-		System.out.println(">>[slave] checking db...");
+		System.out.println(">>..[slave] checking db...");
 
 		//check user id in database
 		IdMatch match = IdMatch.getIdMatchByTelegramUserId(job.message.from.id);
 
-		System.out.println(">>[slave] checking command history...");
+		System.out.println(">>..[slave] checking command history...");
 	//	LastCommand lastCmd = LastCommand.getLastCommand(job.message.from.id);
 		LastCommand lastCmd = null;
 
-		System.out.println(">>[slave] processing command...");
+		System.out.println(">>..[slave] processing command...");
 		if(match == null && command.equals("/start")){			
 			//Let user now what is happening
-			System.out.println(">>[slave] Create health profile...");
+			System.out.println(">>..[slave] Create health profile...");
 			tResponse.setText("Creating your health profile :). Please hold on.");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 
@@ -85,8 +85,8 @@ public class HealthProfileWorker implements Runnable{
 			//chuck.setBirthdate(new Date(2000, 4, 12));
 
 			Response r = sendRequest(hpService, "/person", "POST", chuck); 
-			System.out.println(">>[slave] Fiorini status: "+r.getStatus());
-			System.out.println(">>[slave] Fiorini response: "+r.readEntity(String.class));
+			System.out.println(">>..[slave] Fiorini status: "+r.getStatus());
+			System.out.println(">>..[slave] Fiorini response: "+r.readEntity(String.class));
 
 			if(r.getStatus() == 201){
 				Person p = r.readEntity(Person.class);
@@ -104,25 +104,25 @@ public class HealthProfileWorker implements Runnable{
 			}
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (match == null && !command.equals("/start")) {
-			System.out.println(">>[slave] Must create health profile first: "+command);
+			System.out.println(">>..[slave] Must create health profile first: "+command);
 
 			tResponse.setText("Please type command '/start' to create your health profile");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (match != null && command.equals("/start")){
-			System.out.println(">>[slave] Health Profile already exists: "+command);
+			System.out.println(">>..[slave] Health Profile already exists: "+command);
 
 			tResponse.setText("Welcome back, "+job.message.from.first_name);
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (command.equals("/weight") || command.equals("/height") || command.equals("/blood")){
-			System.out.println(">>[slave] First step add measure: "+command);
+			System.out.println(">>..[slave] First step add measure: "+command);
 			//save command received
 			tResponse.setText("Please enter the measurement value.");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (command.equals("/weightHistory") || command.equals("/heightHistory") || command.equals("/bloodHistory")){ 
-			System.out.println(">>[slave] Get history: "+command);
+			System.out.println(">>..[slave] Get history: "+command);
 
 		} else if (lastCmd != null && (lastCmd.equals("/weight") || lastCmd.equals("/height") || lastCmd.equals("/blood"))){
-			System.out.println(">>[slave] Second step add measure: "+command);
+			System.out.println(">>..[slave] Second step add measure: "+command);
 
 			try {
 				//save measurement
@@ -133,8 +133,8 @@ public class HealthProfileWorker implements Runnable{
 				if(measure.value.equals("blood")) //rename to ACTUAL name on Web Server.
 					measure.value = "bloodpressure";
 				Response r = sendRequest(hpService, path, "POST", measure);
-				System.out.println(">>[slave] Fiorini add measure status: "+r.getStatus());
-				System.out.println(">>[slave] Fiorini add measure response: "+r.readEntity(String.class));
+				System.out.println(">>..[slave] Fiorini add measure status: "+r.getStatus());
+				System.out.println(">>..[slave] Fiorini add measure response: "+r.readEntity(String.class));
 
 				if(r.getStatus() == 200){
 					tResponse.setText("Great, your measurement was stored. Keep up the good work :)");
@@ -144,14 +144,14 @@ public class HealthProfileWorker implements Runnable{
 				}
 				sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 			} catch (NumberFormatException e) {
-				System.out.println(">>[slave] Measurment value not numeric: "+command);
+				System.out.println(">>..[slave] Measurment value not numeric: "+command);
 
 				tResponse.setText("Are you trying to hack me :(? Please type a numeric value.");
 				sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 				hasErrors = true;
 			}
 		} else {
-			System.out.println(">>[slave] Unknown command: "+command);
+			System.out.println(">>..[slave] Unknown command: "+command);
 
 			//Error
 			tResponse.setText("I don't understand this command");
@@ -160,8 +160,8 @@ public class HealthProfileWorker implements Runnable{
 		
 		if(!hasErrors){
 			//update command database for user
-			LastCommand cmd = new LastCommand(job.message.from.id, command);
-			LastCommand.updateLastCommand(cmd);
+	//		LastCommand cmd = new LastCommand(job.message.from.id, command);
+	//		LastCommand.updateLastCommand(cmd);
 		}
 	}
 
