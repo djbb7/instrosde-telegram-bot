@@ -55,6 +55,14 @@ public class HealthProfileBotResource {
         	}
         	
     		LastCommand.updateLastCommand(new LastCommand(update.message.from.id, update.message.text));
+    		
+    		lc = LastCommand.getLastCommand(update.message.from.id);
+        	if(lc != null){
+        		System.out.println(">>[endpoint] Last command: "+lc.getCommand());
+        	} else {
+        		System.out.println(">>[endpoint] No last command stored.");
+        	}
+        	
     	} catch (Exception e){
     		System.out.println("Something happened..."+e.getMessage());
     	}
