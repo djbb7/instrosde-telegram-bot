@@ -122,7 +122,25 @@ public class HealthProfileWorker implements Runnable{
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
 		} else if (command.equals("/weightHistory") || command.equals("/heightHistory") || command.equals("/bloodHistory")){ 
 			System.out.println(">>..[slave] Get history: "+command);
+			String measureType = null;
+			if(command.equals("/weightHistory")){
+				measureType = "weight";
+			} else if (command.equals("/weightHistory")){
+				measureType = "height";
+			} else {
+				measureType = "blood";
+			}
+			Response r = sendRequest(hpService, "/person/"+match.getHealthProfileId()+"/"+measureType, "GET", null);
+			System.out.println(">>..[slave] Fiorini get measure history: "+r.getStatus());
+			System.out.println(">>..[slave] Fiorini get measure history response: "+r.readEntity(String.class));
 
+			if(r.getStatus() == 200){
+//				tResponse.setText("Great, your measurement was stored. Keep up the good work :)");
+			} else {
+				tResponse.setText("I could not fetch the measure history. Could you try again?");
+			}
+			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
+			
 		} else if (lastCmd != null && (lastCmd.getCommand().equals("/weight") 
 									|| lastCmd.getCommand().equals("/height") 
 									|| lastCmd.getCommand().equals("/blood"))){
