@@ -70,7 +70,7 @@ public class HealthProfileWorker implements Runnable{
 		System.out.println(">>..[slave] last command: "+(lastCmd==null?"null":lastCmd.getCommand()));
 		
 		System.out.println(">>..[slave] processing command...");
-		if(match == null && command.equals("/start")){			
+		if(match == null){			
 			//Let user now what is happening
 			System.out.println(">>..[slave] Create health profile...");
 			tResponse.setText("Creating your health profile :). Please hold on.");
@@ -80,9 +80,6 @@ public class HealthProfileWorker implements Runnable{
 			Person chuck = new Person();
 			chuck.setFirstname(job.message.from.first_name);
 			chuck.setLastname(job.message.from.last_name);
-			//chuck.setEmail("");
-			//chuck.measure = new ArrayList<Measurement>();
-			//chuck.setBirthdate(new Date(2000, 4, 12));
 
 			Response r = sendRequest(hpService, "/person", "POST", chuck); 
 			System.out.println(">>..[slave] Fiorini status: "+r.getStatus());
@@ -101,13 +98,13 @@ public class HealthProfileWorker implements Runnable{
 				tResponse.setText("Done! Check out '/help' to see a list of available commands.");
 			} else {
 				tResponse.setText("I could not reach the HealthProfile web server. I'm sorry :)");
+				hasErrors = true;
 			}
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
-		} else if (match == null && !command.equals("/start")) {
-			System.out.println(">>..[slave] Must create health profile first: "+command);
-
-			tResponse.setText("Please type command '/start' to create your health profile");
-			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
+		}
+		
+		if(hasErrors){
+			
 		} else if (match != null && command.equals("/start")){
 			System.out.println(">>..[slave] Health Profile already exists: "+command);
 
