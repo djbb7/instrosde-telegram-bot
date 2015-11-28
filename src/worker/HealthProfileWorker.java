@@ -67,7 +67,11 @@ public class HealthProfileWorker implements Runnable{
 
 		System.out.println(">>..[slave] checking command history...");
 		LastCommand lastCmd = LastCommand.getLastCommand(job.message.from.id);
-		System.out.println(">>..[slave] last command: "+(lastCmd==null?"null":lastCmd.getCommand()));
+		
+		if(lastCmd != null && job.update_id<= lastCmd.getUpdate_id()){	
+			System.out.println(">>..[slave] old command");
+			return;
+		}
 		
 		System.out.println(">>..[slave] processing command...");
 		if(match == null){			
