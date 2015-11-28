@@ -68,6 +68,7 @@ public class HealthProfileWorker implements Runnable{
 		System.out.println(">>..[slave] checking command history...");
 		LastCommand lastCmd = LastCommand.getLastCommand(job.message.from.id);
 		
+		
 		if(lastCmd != null && job.update_id<= lastCmd.getUpdate_id()){	
 			System.out.println(">>..[slave] old command");
 			return;
@@ -122,7 +123,9 @@ public class HealthProfileWorker implements Runnable{
 		} else if (command.equals("/weightHistory") || command.equals("/heightHistory") || command.equals("/bloodHistory")){ 
 			System.out.println(">>..[slave] Get history: "+command);
 
-		} else if (lastCmd != null && (lastCmd.equals("/weight") || lastCmd.equals("/height") || lastCmd.equals("/blood"))){
+		} else if (lastCmd != null && (lastCmd.getCommand().equals("/weight") 
+									|| lastCmd.getCommand().equals("/height") 
+									|| lastCmd.getCommand().equals("/blood"))){
 			System.out.println(">>..[slave] Second step add measure: "+command);
 
 			try {
