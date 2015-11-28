@@ -123,12 +123,12 @@ public class HealthProfileWorker implements Runnable{
 			//save command received
 			tResponse.setText("Please enter the measurement value.");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
-		} else if (command.equals("/weightHistory") || command.equals("/heightHistory") || command.equals("/bloodHistory")){ 
+		} else if (command.equals("/weight_history") || command.equals("/height_history") || command.equals("/blood_history")){ 
 			System.out.println(">>..[slave] Get history: "+command);
 			String measureType = null;
-			if(command.equals("/weightHistory")){
+			if(command.equals("/weight_history")){
 				measureType = "weight";
-			} else if (command.equals("/weightHistory")){
+			} else if (command.equals("/weight_history")){
 				measureType = "height";
 			} else {
 				measureType = "blood";
