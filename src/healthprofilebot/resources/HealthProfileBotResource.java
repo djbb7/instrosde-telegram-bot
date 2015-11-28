@@ -42,8 +42,9 @@ public class HealthProfileBotResource {
     	System.out.println("\n>>[endpoint] Receiving message: "+update.message.text+" from:"+update.message.from.first_name+" chat_id:"+update.message.chat.id);
     	
     	//execute command
-		HealthProfileMaster.getInstance().runTask(update);
+//		HealthProfileMaster.getInstance().runTask(update);
     	
+		System.out.println(">>n[endpoint] master called");
 		return Response.ok().build();
     }
 
