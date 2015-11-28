@@ -1,5 +1,6 @@
 package healthprofilebot.resources;
 
+import healthprofilebot.model.LastCommand;
 import healthprofilebot.model.TelegramUpdate;
 
 import java.io.IOException;
@@ -42,8 +43,13 @@ public class HealthProfileBotResource {
     	System.out.println("\n>>[endpoint] Receiving message: "+update.message.text+" from:"+update.message.from.first_name+" update_id:"+update.update_id);
     	
     	//execute command
-		HealthProfileMaster.getInstance().runTask(update);
+	//	HealthProfileMaster.getInstance().runTask(update);
     	
+    	LastCommand lc = LastCommand.getLastCommand(update.message.from.id);
+    	if(lc != null){
+    		System.out.println(">>[endpoint] Last command: "+lc.getCommand());
+    	}
+    	LastCommand.updateLastCommand(new LastCommand(update.message.from.id, update.message.text));
 		System.out.println(">>[endpoint] master called");
 		return Response.ok().build();
     }
