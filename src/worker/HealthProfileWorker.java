@@ -131,12 +131,13 @@ public class HealthProfileWorker implements Runnable{
 			try {
 				//save measurement
 				double value = Double.parseDouble(command);
-				String path = "/person/"+match.getHealthProfileId()+command;
 				Measurement measure = new Measurement();
 				measure.value = command;
-				if(measure.value.equals("blood")) //rename to ACTUAL name on Web Server.
-					measure.value = "bloodpressure";
-				Response r = sendRequest(hpService, path, "POST", measure);
+				String path = lastCmd.getCommand();
+				if(path.equals("/blood")) //rename to ACTUAL name on Web Server.
+					path = "/bloodpressure";
+
+				Response r = sendRequest(hpService, "/person/"+match.getHealthProfileId()+path, "POST", measure);
 				System.out.println(">>..[slave] Fiorini add measure status: "+r.getStatus());
 				System.out.println(">>..[slave] Fiorini add measure response: "+r.readEntity(String.class));
 
