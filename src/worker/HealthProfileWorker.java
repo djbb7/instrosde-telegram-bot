@@ -146,7 +146,6 @@ public class HealthProfileWorker implements Runnable{
 				tResponse.setText("I could not fetch the measure history. Could you try again?");
 			}
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
-			
 		} else if (lastCmd != null && (lastCmd.getCommand().equals("/weight") 
 									|| lastCmd.getCommand().equals("/height") 
 									|| lastCmd.getCommand().equals("/blood"))){
