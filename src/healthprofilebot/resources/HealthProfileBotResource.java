@@ -42,7 +42,7 @@ public class HealthProfileBotResource {
     	System.out.println("\n>>[endpoint] Receiving message: "+update.message.text+" from:"+update.message.from.first_name+" update_id:"+update.update_id);
     	
     	//execute command
-		//HealthProfileMaster.getInstance().runTask(update);
+		HealthProfileMaster.getInstance().runTask(update);
     	
 		System.out.println(">>[endpoint] master called");
 	
