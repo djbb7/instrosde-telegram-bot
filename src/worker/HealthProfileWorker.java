@@ -33,7 +33,7 @@ public class HealthProfileWorker implements Runnable{
 	private static WebTarget hpService, telegramService;
 
 
-	private static String telegramServer = "https://api.telegram.org/bot178041124:AAFe4zG7TpdBtrImZrv_6hNOUgYUNI4VSNQ";
+	private static String telegramServer = "https://api.telegram.org/bot178041124:178041124:AAFe4zG7TpdBtrImZrv_6hNOUgYUNI4VSNQ";
 
 	private static String healthProfileServer = "https://damp-cliffs-5416.herokuapp.com/rest";
 
@@ -114,7 +114,18 @@ public class HealthProfileWorker implements Runnable{
 		
 		if(hasErrors){
 			
-		} else if (command.equals("/start")){
+		} else if (command.equals("/help")){
+			String instructions = "Please enter one of the following commands: \n"
+					+ "*/start* to initialize your health profile\n"
+					+ "*/weight* to enter a weight measurement\n"
+					+ "*/height* to enter a height measurement\n"
+					+ "*/blood* to enter a blood pressure measurement\n"
+					+ "*/weight_history* to check the list of weight measurements\n"
+					+ "*/height_history* to check the list of height measurements\n"
+					+ "*/blood_history* to check the list of blood pressure measurements\n";
+			tResponse.setText(instructions);
+			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
+		}else if (command.equals("/start")){
 			System.out.println(">>..[slave] Health Profile already exists: "+command);
 		} else if (command.equals("/weight") || command.equals("/height") || command.equals("/blood")){
 			System.out.println(">>..[slave] First step add measure: "+command);
