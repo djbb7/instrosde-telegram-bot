@@ -11,6 +11,8 @@ public class ServerResponse {
 	
 	private String method;
 	
+	private String parse_mode;
+	
 	public ServerResponse(){
 		
 	}
@@ -31,6 +33,11 @@ public class ServerResponse {
 		return method;
 	}
 	
+	public String getParse_mode() {
+		return parse_mode;
+	}
+	
+
 	public void setChat_id(int chat_id) {
 		this.chat_id = chat_id;
 	}
@@ -43,4 +50,8 @@ public class ServerResponse {
 		this.method = m;
 	}
 	
+
+	public void setParse_mode(String parse_mode) {
+		this.parse_mode = parse_mode;
+	}
 }
