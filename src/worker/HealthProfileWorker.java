@@ -77,6 +77,7 @@ public class HealthProfileWorker implements Runnable{
 			tResponse.setText(instructions);
 			tResponse.setParse_mode("Markdown");
 			sendRequest(telegramService, "/sendMessage", "POST", tResponse);
+			return;
 		}
 		
 		
