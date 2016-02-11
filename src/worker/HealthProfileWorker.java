@@ -158,7 +158,7 @@ public class HealthProfileWorker implements Runnable{
 				for(MeasurementWithId m : history){
 					res += m.value+", ";
 				}
-				res = res.substring(0, res.length()- 2);
+				res = res.substring(0, res.length() - 2);
 				tResponse.setText("History: "+res);
 			} else {
 				tResponse.setText("I could not fetch the measure history. Could you try again?");
