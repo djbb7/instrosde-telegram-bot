@@ -2,6 +2,9 @@ package healthprofilebot.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @XmlRootElement
 public class ServerResponse {
 
@@ -11,6 +14,7 @@ public class ServerResponse {
 	
 	private String method;
 	
+	@JsonInclude(Include.NON_NULL)
 	private String parse_mode;
 	
 	public ServerResponse(){
