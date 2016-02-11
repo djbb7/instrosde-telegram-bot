@@ -33,7 +33,7 @@ public class HealthProfileWorker implements Runnable{
 	private static WebTarget hpService, telegramService;
 
 
-	private static String telegramServer = "https://api.telegram.org/bot178041124:178041124:AAFe4zG7TpdBtrImZrv_6hNOUgYUNI4VSNQ";
+	private static String telegramServer = "https://api.telegram.org/bot178041124:AAFe4zG7TpdBtrImZrv_6hNOUgYUNI4VSNQ";
 
 	private static String healthProfileServer = "https://damp-cliffs-5416.herokuapp.com/rest";
 
