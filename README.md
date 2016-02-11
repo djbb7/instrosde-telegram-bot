@@ -6,9 +6,9 @@ Interesting concepts applied in this project are viewing the Bot as a state mach
 
 Another interesting aspect is that when the bot receives a request, it immediately replies 200 OK. In this way, the user gets the 2 delivered checkmarks that indicate that the message has been delivered. In the background, the bot spawns a worker which handles the request and POSTs the message to the user when it is done communicating with other web services.
 
-Feel free to use this project as a base of how to interact with telegram in Java. It is ready to be deployed to heroku, only your access token must be set.
+Feel free to use this project as a base of how to interact with telegram in Java. It is ready to be deployed to heroku, only your access token must be set. This is done by setting the bot_access_token environment variable in Heroku.
 
-[Screenshot](https://raw.githubusercontent.com/djbb7/instrosde-telegram-bot/master/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/djbb7/instrosde-telegram-bot/master/screenshot.png)
 
 ## About the Project
 
