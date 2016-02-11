@@ -143,7 +143,7 @@ public class HealthProfileWorker implements Runnable{
 			String measureType = null;
 			if(command.equals("/weight_history")){
 				measureType = "weight";
-			} else if (command.equals("/weight_history")){
+			} else if (command.equals("/height_history")){
 				measureType = "height";
 			} else {
 				measureType = "bloodpressure";
@@ -158,6 +158,7 @@ public class HealthProfileWorker implements Runnable{
 				for(MeasurementWithId m : history){
 					res += m.value+", ";
 				}
+				res = res.substring(0, res.length() -1);
 				tResponse.setText("History: "+res);
 			} else {
 				tResponse.setText("I could not fetch the measure history. Could you try again?");
